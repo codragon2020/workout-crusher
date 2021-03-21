@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", e => {
   const postCategorySelect = document.getElementById("preCategory");
 
   let posts;
+  let activePost;
 
   // Function to grab posts from the database
   const getPosts = category => {
@@ -74,13 +75,23 @@ document.addEventListener("DOMContentLoaded", e => {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "x";
     deleteBtn.classList.add("delete", "btn", "btn-danger");
-    deleteBtn.addEventListener("click", handlePostDelete);
+    deleteBtn.setAttribute("data-bs-toggle", "modal");
+    deleteBtn.setAttribute("data-bs-target", "#modalDelete");
+    deleteBtn.addEventListener("click", e => {
+      activePost = JSON.parse(
+        e.target.parentElement.parentElement.dataset.post
+      );
+    });
 
     // Edit button
     const editBtn = document.createElement("button");
     editBtn.textContent = "EDIT";
     editBtn.classList.add("delete", "btn", "btn-primary");
-    editBtn.addEventListener("click", handlePostEdit);
+    editBtn.addEventListener("click", e => {
+      activePost = JSON.parse(
+        e.target.parentElement.parentElement.dataset.post
+      );
+    });
 
     // New post info
     const newPostTitle = document.createElement("h5");
@@ -122,13 +133,14 @@ document.addEventListener("DOMContentLoaded", e => {
     return newPostCard;
   };
 
-  const handlePostDelete = e => {
-    const currentPost = JSON.parse(
-      e.target.parentElement.parentElement.dataset.post
-    );
+  const handlePostDelete = () => {
+    const currentPost = activePost;
     console.log("handlePostDelete -> currentPost", currentPost);
     deletePost(currentPost.id);
   };
+
+  const modalDeleteBtn = document.querySelector(".deleteBtn");
+  modalDeleteBtn.addEventListener("click", handlePostDelete);
 
   const handlePostEdit = e => {
     const currentPost = JSON.parse(
