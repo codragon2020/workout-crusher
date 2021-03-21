@@ -142,13 +142,13 @@ document.addEventListener("DOMContentLoaded", e => {
   const modalDeleteBtn = document.querySelector(".deleteBtn");
   modalDeleteBtn.addEventListener("click", handlePostDelete);
 
-  const handlePostEdit = e => {
-    const currentPost = JSON.parse(
-      e.target.parentElement.parentElement.dataset.post
-    );
-    console.log("handlePostEdit -> currentPost", currentPost);
-    window.location.href = `/cms?post_id=${currentPost.id}`;
-  };
+  // const handlePostEdit = e => {
+  //   const currentPost = JSON.parse(
+  //     e.target.parentElement.parentElement.dataset.post
+  //   );
+  //   console.log("handlePostEdit -> currentPost", currentPost);
+  //   window.location.href = `/cms?post_id=${currentPost.id}`;
+  // };
 
   const displayEmpty = () => {
     exerContainer.innerHTML = "";
